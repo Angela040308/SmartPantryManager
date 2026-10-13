@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <!-- setting title-->
+    <TextView
+        android:id= "@+id/settingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SETTINGS"
+        android:textSize="24sp"
+        android:textStyle= "bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <!-- expiry alerts heading-->
+    <TextView
+        android:id= "@+id/expiryAlertsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EXPIRY ALERTS"
+        android:textSize="18sp"
+        android:textStyle= "bold"
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <!-- expiry alerts heading-->
+    <TextView
+
+        android:id= "@+id/expiryAlertsDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Receive reminders about ingredients that are expiring soon"
+        android:textSize= "14sp"
+        app:layout_constraintTop_toBottomOf="@id/expiryAlertsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/expiryAlertsSwitch"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        />
+
+    <!-- expiry alerts switch-->
+    <Switch
+        android:id="@+id/expiryAlertsSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/expiryAlertsTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        />
+    <!-- units perferene heading-->
+    <TextView
+        android:id= "@+id/unitsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preferred Units"
+        android:textSize="18sp"
+        android:textStyle= "bold"
+        app:layout_constraintTop_toBottomOf="@id/expiryAlertsDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <!-- units perferene description-->
+    <TextView
+        android:id= "@+id/unitsDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose your preferred measurements units"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/unitsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <!-- units dropdown-->
+    <Spinner
+        android:id= "@+id/unitsSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/unitsDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEditaIngredientActivity">
+
+    <!--ingredient title-->
+    <TextView
+        android:id="@+id/addEditTitle"
+        android:text="ADD/EDIT INGREDIENT"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <!--Ingredient textfield-->
+    <EditText
+        android:id="@+id/editIngredientName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter ingredient"
+        app:layout_constraintTop_toBottomOf="@id/addEditTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        />
+
+    <!--quantity textfield-->
+    <EditText
+        android:id="@+id/editIngredientQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter quantity"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/editIngredientName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <!--unit textfield-->
+    <EditText
+        android:id="@+id/editIngredientUnit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter unit"
+        app:layout_constraintTop_toBottomOf="@id/editIngredientQuantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <!--expiry textfield-->
+    <EditText
+        android:id="@+id/editExpiryDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter expiry date"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@id/editIngredientUnit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <!-- save Ingredient Button -->
+    <Button
+        android:id="@+id/saveIngredientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Ingredient"
+        app:layout_constraintTop_toBottomOf="@id/editExpiryDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        />
+
+    <!-- cancel Ingredient Button -->
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        app:layout_constraintTop_toBottomOf="@id/saveIngredientButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="8dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

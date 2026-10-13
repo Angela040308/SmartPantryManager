@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Pantry title -->
+    <TextView
+        android:id="@+id/pantryTitle"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:text="SMART PANTRY"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp"
+        />
+
+    <!-- add ingredients title -->
+    <TextView
+        android:id="@+id/addIngredientsTitle"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Ingredient"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/ingredientName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="8dp"
+        />
+
+
+    <!-- ingredient text  -->
+    <EditText
+        android:id="@+id/ingredientName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Enter ingredient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pantryTitle" />
+
+    <!-- quantity text  -->
+    <EditText
+        android:id="@+id/ingredientQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Quantity"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/ingredientName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- unit text  -->
+    <EditText
+        android:id="@+id/ingredientUnit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter the unit"
+        app:layout_constraintTop_toBottomOf="@id/ingredientQuantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- expiry date text  -->
+    <EditText
+        android:id="@+id/expiryDate"
+        android:inputType="date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter expiry date"
+        app:layout_constraintTop_toBottomOf="@id/ingredientUnit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ingredient button  -->
+    <Button
+        android:id="@+id/addIngredientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Ingredient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expiryDate" />
+
+    <!-- clear button  -->
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Clear"
+        app:layout_constraintStart_toEndOf="@id/addIngredientButton"
+        app:layout_constraintTop_toTopOf="@id/addIngredientButton"
+        />
+
+    <!-- Pantry List  -->
+    <TextView
+        android:id="@+id/pantryList"
+        android:text="My Pantry"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/addIngredientButton"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pantryRecyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/pantryList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
