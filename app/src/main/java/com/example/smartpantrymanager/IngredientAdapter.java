@@ -6,23 +6,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import android.widget.Toast;
+import android.widget.Button;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>{
-    private ArrayList<Ingredient> ingredientList;
-    public IngredientAdapter (ArrayList<Ingredient> ingredientList){
-        this.ingredientList=ingredientList;
+
+    private final ArrayList<Ingredient> ingredientList;
+    private final DatabaseHelper databaseHelper;
+
+    public IngredientAdapter (ArrayList<Ingredient> ingredientList, DatabaseHelper databaseHelper){
+        this.ingredientList = ingredientList;
+        this.databaseHelper = databaseHelper;
     }
     public static class IngredientViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView quantity;
         TextView expiry;
+        Button deleteButton;
 
         public IngredientViewHolder(@NonNull View itemView){
             super(itemView);
 
+
             name= itemView.findViewById(R.id.itemIngredientName);
             quantity = itemView.findViewById(R.id.itemingredientQuantity);
             expiry = itemView.findViewById(R.id.itemingredientExpiryy);
+            deleteButton = itemView.findViewById(R.id.deleteingredientButton);
         }
     }
     @NonNull
@@ -35,15 +44,39 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position){
         Ingredient ingredient = ingredientList.get(position);
+        holder.deleteButton.setOnClickListener(v-> {
+            boolean deleted = databaseHelper.deleteIngredient(ingredient.getId());
+
+            if(deleted) {
+                int currentPosition = holder.getBindingAdapterPosition();
+
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    ingredientList.remove(currentPosition);
+                    notifyItemRemoved(currentPosition);
+                }
+                Toast.makeText(v.getContext(), "Ingredient deleted successfully", Toast.LENGTH_SHORT).show();
+
+            }else{
+                Toast.makeText(v.getContext(), "Failed to delete ingredient", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         holder.name.setText(ingredient.getName());
-        holder.quantity.setText(ingredient.getQuantity()+ " "+ ingredient.getUnit());
-        holder.expiry.setText(ingredient.getExpiryDate());
+        holder.quantity.setText(
+                holder.itemView.getContext().getString(
+                        R.string.ingredient_quantity,
+                        ingredient.getQuantity(),
+                        ingredient.getUnit()
+                )
+        );
 
         if (ingredient.getExpiryDate() == null || ingredient.getExpiryDate().isEmpty()){
-            holder.expiry.setText("Expiry date: Not provided");
+            holder.expiry.setText(R.string.expiry_not_provided);
         }else {
-            holder.expiry.setText("Expiry date" + ingredient.getExpiryDate());
+            holder.expiry.setText(holder.itemView.getContext().getString(
+                    R.string.expiry_date,ingredient.getExpiryDate()
+            ));
+
         }
     }
     @Override

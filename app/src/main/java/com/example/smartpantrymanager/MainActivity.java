@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView pantryRecyclerView = findViewById(R.id.pantryRecyclerview);
         pantryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ingredientList.addAll(databaseHelper.getAllIngredient());
-        IngredientAdapter adapter = new IngredientAdapter(ingredientList);
+        IngredientAdapter adapter = new IngredientAdapter(ingredientList, databaseHelper);
         pantryRecyclerView.setAdapter(adapter);
         EditText ingredientName = findViewById(R.id.ingredientName);
         EditText ingredientQuantity = findViewById(R.id.ingredientQuantity);
@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this,"Enter a valid number for quantity", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    boolean saved = databaseHelper.addIngredient(name,quantityValue, unit, expiry);
-                    if(saved){
-                        Ingredient ingredient = new Ingredient (name, quantity, unit, expiry);
+                    long saved = databaseHelper.addIngredient(name,quantityValue, unit, expiry);
+                    if(saved !=-1){
+                        Ingredient ingredient = new Ingredient ((int)saved ,name, quantity, unit, expiry);
                         ingredientList.add(ingredient);
                         adapter.notifyItemInserted(ingredientList.size() -1);
                         Toast.makeText(this, "Ingredient added successfully", Toast.LENGTH_SHORT).show();

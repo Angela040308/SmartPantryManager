@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SmartPantryManager</string>
+    <string name="ingredient_quantity">%1$s %2$s</string>
+    <string name="expiry_not_provided">Expiry date: Not provided</string>
+    <string name="expiry_date">Expiry date: %1$s</string>
+    <string name="ingredient_name_hint">Ingredient name</string>
+    <string name="quantity_label">Quantity</string>
+    <string name="expiry_date_label">Expiry Date</string>
+    <string name="delete_button">Delete</string>
 </resources>

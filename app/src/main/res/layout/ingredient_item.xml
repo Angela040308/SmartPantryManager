@@ -8,7 +8,7 @@
         android:id="@+id/itemIngredientName"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Ingredient name"
+        android:text="@string/ingredient_name_hint"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/itemingredientQuantity"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Quantity"
+        android:text="@string/quantity_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemIngredientName"
@@ -30,10 +30,19 @@
         android:id="@+id/itemingredientExpiryy"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Expiry Date"
+        android:text="@string/expiry_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemingredientQuantity"
-        app:layout_constraintTop_toTopOf="parent"
         />
+
+    <Button
+        android:id="@+id/deleteingredientButton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/delete_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemingredientExpiryy"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
