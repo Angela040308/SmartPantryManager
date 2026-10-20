@@ -11,16 +11,25 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
 import java.util.ArrayList;
-import com.example.smartpantrymanager.Ingredient;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Ingredient> ingredientList = new ArrayList<>();
+    private final ArrayList<Ingredient> ingredientList = new ArrayList<>();
+    private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        databaseHelper= new DatabaseHelper(this);
+        RecyclerView pantryRecyclerView = findViewById(R.id.pantryRecyclerview);
+        pantryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ingredientList.addAll(databaseHelper.getAllIngredient());
+        IngredientAdapter adapter = new IngredientAdapter(ingredientList);
+        pantryRecyclerView.setAdapter(adapter);
         EditText ingredientName = findViewById(R.id.ingredientName);
         EditText ingredientQuantity = findViewById(R.id.ingredientQuantity);
         EditText ingredientUnit = findViewById(R.id.ingredientUnit);
@@ -45,13 +54,30 @@ public class MainActivity extends AppCompatActivity {
                     }
                     String unit = ingredientUnit.getText().toString();
                     String expiry = expiryDate.getText().toString();
-                    Ingredient ingredient = new Ingredient(name, quantity, unit, expiry);
-                    ingredientList.add(ingredient);
-                    Toast.makeText(this, "Ingredient added successfully", Toast.LENGTH_SHORT).show();
-                    ingredientName.setText("");
-                    ingredientQuantity.setText("");
-                    ingredientUnit.setText("");
-                    expiryDate.setText("");
+                    double quantityValue;
+                    try {
+                          quantityValue= Double.parseDouble(quantity);
+                          if(quantityValue <=0){
+                              Toast.makeText(this,"Quantity must be greater than zero", Toast.LENGTH_SHORT).show();
+                              return;
+                          }
+                    } catch(NumberFormatException e){
+                        Toast.makeText(this,"Enter a valid number for quantity", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    boolean saved = databaseHelper.addIngredient(name,quantityValue, unit, expiry);
+                    if(saved){
+                        Ingredient ingredient = new Ingredient (name, quantity, unit, expiry);
+                        ingredientList.add(ingredient);
+                        adapter.notifyItemInserted(ingredientList.size() -1);
+                        Toast.makeText(this, "Ingredient added successfully", Toast.LENGTH_SHORT).show();
+                        ingredientName.setText("");
+                        ingredientQuantity.setText("");
+                        ingredientUnit.setText("");
+                        expiryDate.setText("");
+                    } else {
+                        Toast.makeText(this, "Failed to save ingredient",Toast.LENGTH_SHORT).show();
+                    }
                 });
         Button clearButton = findViewById(R.id.clearButton);
         clearButton.setOnClickListener(v->{
