@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
 import android.database.Cursor;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME ="SmartPantry.db"; //sets the name of the local database file
@@ -184,6 +187,173 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 "Egg:2:pcs;Tomato:1:pcs;Onion:1:pcs",
                 "Beat eggs. Cook chopped tomato and onion, add eggs and cook.");
     }
+    public ArrayList<Recipe> getAllRecipes(){
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM recipes",null);
+        if(cursor.moveToFirst ()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String ingredients = cursor.getString(cursor.getColumnIndexOrThrow("ingredients"));
+                String instructions = cursor.getString(cursor.getColumnIndexOrThrow("instructions"));
+                Recipe recipe = new Recipe(id, name, ingredients, instructions);
+                recipeList.add(recipe);
+            }
+            while (cursor.moveToNext()) ;
+        }
+        cursor.close();
+        return recipeList;
+
+    }
+    public Recipe getRecipeById(int recipeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM recipes WHERE id = ?",
+                new String[]{String.valueOf(recipeId)}
+        );
+
+        Recipe recipe = null;
+
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            String ingredients = cursor.getString(cursor.getColumnIndexOrThrow("ingredients"));
+            String instructions = cursor.getString(cursor.getColumnIndexOrThrow("instructions"));
+
+            recipe = new Recipe(id, name, ingredients, instructions);
+        }
+
+        cursor.close();
+        return recipe;
+    }
+    public ArrayList<Recipe> getMatchingRecipes() {
+        ArrayList<Recipe> matchingRecipes = new ArrayList<>();
+        ArrayList<Ingredient> pantryItems = getAllIngredient();
+        ArrayList<Recipe> allRecipes = getAllRecipes();
+
+        Map<String, Double> pantryQuantities = new HashMap<>();
+        Map<String, String> pantryUnits = new HashMap<>();
+
+        for (Ingredient item : pantryItems) {
+            String name = item.getName().trim().toLowerCase(Locale.ROOT);
+            String unit = getBaseUnit(normalizeUnit(item.getUnit()));
+            double quantity = convertToBaseUnit(
+                    Double.parseDouble(item.getQuantity()), unit);
+
+
+            Double currentQuantity = pantryQuantities.get(name);
+            pantryQuantities.put(
+                    name, (currentQuantity == null ? 0.0 : currentQuantity) + quantity
+            );
+
+            pantryUnits.put(name, unit);
+
+        }
+
+        for (Recipe recipe : allRecipes) {
+            boolean canMakeRecipe = true;
+            String[] requiredIngredients = recipe.getIngredients().split(";");
+
+            for (String required : requiredIngredients) {
+                String[] details = required.split(":");
+
+                if (details.length != 3) {
+                    canMakeRecipe = false;
+                    break;
+                }
+
+                String name = details[0].trim().toLowerCase(Locale.ROOT);
+                String requiredUnit = getBaseUnit(normalizeUnit(details[2]));
+                double requiredQuantity = convertToBaseUnit(
+                        Double.parseDouble(details[1].trim()), requiredUnit);
+
+                Double availableQuantity = pantryQuantities.get(name);
+                String availableUnit = pantryUnits.get(name);
+
+                if (availableQuantity == null
+                        || availableUnit == null
+                        || !availableUnit.equals(requiredUnit)
+                        || availableQuantity < requiredQuantity) {
+                    canMakeRecipe = false;
+                    break;
+                }
+            }
+
+            if (canMakeRecipe) {
+                matchingRecipes.add(recipe);
+            }
+        }
+
+        return matchingRecipes;
+    }
+
+    private String normalizeUnit (String unit){
+        switch(unit.trim().toLowerCase(Locale.ROOT)){
+            case "gram":
+            case "grams":
+            case "g":
+                return "g";
+
+            case "kilogram":
+            case "kilograms":
+            case"kg":
+                return "kg";
+
+            case "milliliter":
+            case "milliliters":
+            case "millilitres":
+            case "millilitre":
+            case "ml":
+                return "ml";
+
+            case "liter":
+            case "liters":
+            case "litre":
+            case "litres":
+            case "l":
+                return "l";
+
+            case "pieces":
+            case "piece":
+            case "pcs":
+                return "pcs";
+
+            default:
+                return unit.trim().toLowerCase(Locale.ROOT);
+
+        }
+    }
+    private String getBaseUnit(String unit) {
+        switch (normalizeUnit(unit)) {
+            case "kg":
+            case "g":
+                return "g";
+
+            case "l":
+            case "ml":
+                return "ml";
+
+            default:
+                return normalizeUnit(unit);
+        }
+    }
+    private double convertToBaseUnit(double quantity, String unit) {
+        switch (normalizeUnit(unit)) {
+            case "kg":
+            case "l":
+                return quantity * 1000;
+
+            case "g":
+            case "ml":
+            case "pcs":
+            default:
+                return quantity;
+        }
+    }
+
     @Override //handles database structure changes in future version
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         if(oldVersion <2){

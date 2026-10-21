@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.SwitchCompat;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -53,6 +54,16 @@ public class SettingsActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        SwitchCompat expiryAlertsSwitch = findViewById(R.id.expiryAlertsSwitch);
+        boolean alertsEnabled = preferences.getBoolean("expiryAlertsEnabled", true);
+        expiryAlertsSwitch.setChecked(alertsEnabled);
+
+        expiryAlertsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preferences.edit()
+                    .putBoolean("expiryAlertsEnabled", isChecked)
+                    .apply();
         });
     }
 }

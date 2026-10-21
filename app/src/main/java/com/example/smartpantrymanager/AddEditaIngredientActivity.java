@@ -72,7 +72,7 @@ private int ingredientId = -1;
                 success = databaseHelper.updateIngredient(ingredientId, name, quantity, unit, expiry.isEmpty() ?null:expiry);
             }
             if (success){
-                Toast.makeText(this, "Ingredient saved succesfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Ingredient saved successfully", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 Toast.makeText(this,"Failed to save ingredient", Toast.LENGTH_SHORT).show();

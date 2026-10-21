@@ -7,4 +7,19 @@
     <string name="quantity_label">Quantity</string>
     <string name="expiry_date_label">Expiry Date</string>
     <string name="delete_button">Delete</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="recipe_description">Tap to view ingredients and instructions</string>
+    <string name="settings_title">SETTINGS</string>
+    <string name="expiry_alerts">EXPIRY ALERTS</string>
+    <string name="expiry_alerts_description">Receive reminders about ingredients that are expiring soon</string>
+    <string name="preferred_units">Preferred Units</string>
+    <string name="preferred_units_description">Choose your preferred measurement units</string>
+    <string name="recipe_description">Tap to view ingredients and instructions</string>
+    <string name="recipe_not_found">Recipe not found</string>
+    <string name="recipe_detail_name">RECIPE NAME</string>
+    <string name="ingredients_title">INGREDIENTS</string>
+    <string name="ingredient_examples">Ingredient 1\nIngredient 2\nIngredient 3</string>
+    <string name="method_title">METHOD</string>
+    <string name="method_examples">Step 1: Prepare the ingredients.\nStep 2: Cook the ingredients.\nStep 3: Serve.</string>
+    <string name="suggested_recipes_title">SUGGESTED RECIPES</string>
 </resources>

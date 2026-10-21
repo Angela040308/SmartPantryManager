@@ -10,7 +10,7 @@
     <!--recipe ingredient-->
     <TextView
         android:id="@+id/recipeDetailTitle"
-        android:text="RECIPE NAME"
+        android:text="@string/recipe_detail_name"
         android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,12 +23,13 @@
     <!--recipe ingredient title-->
     <TextView
         android:id="@+id/ingredientTitle"
-        android:text="INGREDIENTS"
+        android:text="@string/ingredients_title"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/recipeDetailTitle"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"
         android:layout_marginStart="16dp"
         />
@@ -36,7 +37,7 @@
     <!--recipe ingredient title-->
     <TextView
         android:id="@+id/recipeIngredients"
-        android:text="Ingredient 1\nIngredient 2\nIngredient 3"
+        android:text="@string/ingredient_examples"
         android:textSize="16sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
     <!--Method title-->
     <TextView
         android:id="@+id/methodTitle"
-        android:text="METHOD"
+        android:text="@string/method_title"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -65,7 +66,7 @@
     <!--recipe method-->
     <TextView
         android:id="@+id/recipeMethod"
-        android:text="Step1: Prepare the ingredients. \n Step2: Cook the ingredients \nStep3: Serve"
+        android:text="@string/method_examples"
         android:textSize="16sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
