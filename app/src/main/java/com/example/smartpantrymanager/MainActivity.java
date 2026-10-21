@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 public class MainActivity extends AppCompatActivity {
 
     private final ArrayList<Ingredient> ingredientList = new ArrayList<>();
+    private IngredientAdapter adapter;
     private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView pantryRecyclerView = findViewById(R.id.pantryRecyclerview);
         pantryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ingredientList.addAll(databaseHelper.getAllIngredient());
-        IngredientAdapter adapter = new IngredientAdapter(ingredientList, databaseHelper);
+        adapter = new IngredientAdapter(ingredientList, databaseHelper);
         pantryRecyclerView.setAdapter(adapter);
         EditText ingredientName = findViewById(R.id.ingredientName);
         EditText ingredientQuantity = findViewById(R.id.ingredientQuantity);
@@ -91,5 +92,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        if(databaseHelper != null && adapter != null){
+            ingredientList.clear();
+            ingredientList.addAll(databaseHelper.getAllIngredient());
+            adapter.notifyDataSetChanged();
+        }
     }
     }

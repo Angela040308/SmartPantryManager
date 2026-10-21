@@ -23,6 +23,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 "expiryDate TEXT)";
 
         db.execSQL(createTable);
+        String createRecipesTable = "CREATE TABLE recipes ("+
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "name TEXT NOT NULL, "+
+                "ingredients Text NOT NULL, "+
+                "instructions TEXT NOT NULL)";
+        db.execSQL(createRecipesTable);
     }
     public long addIngredient(String name, double quantity, String unit, String expiryDate){
 
@@ -41,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM ingredient",null);
+                "SELECT * FROM ingredients",null);
 
         if(cursor.moveToFirst()){
             do{
@@ -52,13 +58,32 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 String expiryDate = cursor.getString (cursor.getColumnIndexOrThrow("expiryDate"));
                 Ingredient ingredient = new Ingredient(id, name, String.valueOf(quantity), unit, expiryDate);
                 ingredientList.add(ingredient);
-            }while (cursor.moveToLast());
+            }while (cursor.moveToNext());
         }
         cursor.close();
         return ingredientList;
     }
+    public Ingredient getIngredientById(int id ){
+        SQLiteDatabase db = this.getReadableDatabase();
 
-    public boolean undateIngredient(int id, String name, double quantity, String unit, String expiryDate){
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM ingredients WHERE id= ?",
+                new String []{String.valueOf(id)}
+        );
+        Ingredient ingredient = null;
+        if (cursor.moveToFirst()){
+            String name = cursor.getString (cursor.getColumnIndexOrThrow("name"));
+            double quantity = cursor.getDouble(cursor.getColumnIndexOrThrow("quantity"));
+            String unit = cursor.getString (cursor.getColumnIndexOrThrow("unit"));
+            String expiryDate = cursor.getString (cursor.getColumnIndexOrThrow("expiryDate"));
+            ingredient = new Ingredient(id, name, String.valueOf(quantity), unit, expiryDate);
+        }
+        cursor.close();
+        return ingredient;
+
+    }
+
+    public boolean updateIngredient(int id, String name, double quantity, String unit, String expiryDate){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -78,10 +103,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db= this.getWritableDatabase();
         int result = db.delete(
                 "ingredients",
-                "id =? ",
+                "id = ?",
                 new String []{String.valueOf(id)}
         );
         return result >0;
+    }
+    public long addRecipe(String name, String ingredients, String instructions){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name",name);
+        values.put("ingredients",ingredients);
+        values.put("instructions", instructions);
+        return db.insert("recipes", null, values);
     }
     @Override //handles database structure changes in future version
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){

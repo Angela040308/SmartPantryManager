@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import android.widget.Toast;
 import android.widget.Button;
+import android.content.Intent;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>{
 
@@ -44,6 +45,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position){
         Ingredient ingredient = ingredientList.get(position);
+        holder.itemView.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), AddEditaIngredientActivity.class);
+            intent.putExtra("ingredientId", ingredient.getId());
+            v.getContext().startActivity(intent);
+        });
         holder.deleteButton.setOnClickListener(v-> {
             boolean deleted = databaseHelper.deleteIngredient(ingredient.getId());
 
