@@ -10,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
     private RecipeAdapter recipeAdapter;
     private DatabaseHelper databaseHelper;
     private ArrayList<Recipe> recipeList;
+    private TextView noRecipesMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,16 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         suggestedRecipesRecyclerView = findViewById(R.id.suggestedRecipesRecyclerView);
         suggestedRecipesRecyclerView.setLayoutManager( new LinearLayoutManager(this));
         recipeList = databaseHelper.getMatchingRecipes();
-        android.widget.Toast.makeText(
-                this,
-                "All recipes: " + databaseHelper.getAllRecipes().size()
-                        + "\nMatching recipes: " + recipeList.size(),
-                android.widget.Toast.LENGTH_LONG).show();
+        noRecipesMessage = findViewById(R.id.noRecipesMessage);
+
+        if (recipeList.isEmpty()) {
+            noRecipesMessage.setVisibility(View.VISIBLE);
+            suggestedRecipesRecyclerView.setVisibility(View.GONE);
+        } else {
+            noRecipesMessage.setVisibility(View.GONE);
+            suggestedRecipesRecyclerView.setVisibility(View.VISIBLE);
+        }
+
         recipeAdapter = new RecipeAdapter(recipeList);
         suggestedRecipesRecyclerView.setAdapter(recipeAdapter);
         recipeAdapter.setOnRecipeClickListener(recipe -> {
@@ -47,7 +55,6 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
             intent.putExtra("recipeId", recipe.getId());
             startActivity(intent);
         });
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
