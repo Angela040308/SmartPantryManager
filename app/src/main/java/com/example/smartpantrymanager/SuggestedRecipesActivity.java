@@ -28,6 +28,11 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         suggestedRecipesRecyclerView = findViewById(R.id.suggestedRecipesRecyclerView);
         suggestedRecipesRecyclerView.setLayoutManager( new LinearLayoutManager(this));
         recipeList = databaseHelper.getMatchingRecipes();
+        android.widget.Toast.makeText(
+                this,
+                "All recipes: " + databaseHelper.getAllRecipes().size()
+                        + "\nMatching recipes: " + recipeList.size(),
+                android.widget.Toast.LENGTH_LONG).show();
         recipeAdapter = new RecipeAdapter(recipeList);
         suggestedRecipesRecyclerView.setAdapter(recipeAdapter);
         recipeAdapter.setOnRecipeClickListener(recipe -> {

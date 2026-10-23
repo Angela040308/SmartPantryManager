@@ -8,7 +8,6 @@
     <string name="expiry_date_label">Expiry Date</string>
     <string name="delete_button">Delete</string>
     <string name="recipe_name">Recipe Name</string>
-    <string name="recipe_description">Tap to view ingredients and instructions</string>
     <string name="settings_title">SETTINGS</string>
     <string name="expiry_alerts">EXPIRY ALERTS</string>
     <string name="expiry_alerts_description">Receive reminders about ingredients that are expiring soon</string>
@@ -22,4 +21,19 @@
     <string name="method_title">METHOD</string>
     <string name="method_examples">Step 1: Prepare the ingredients.\nStep 2: Cook the ingredients.\nStep 3: Serve.</string>
     <string name="suggested_recipes_title">SUGGESTED RECIPES</string>
+    <string name="app_title">SMART PANTRY</string>
+    <string name="add_ingredient">Add Ingredient</string>
+    <string name="enter_ingredient">Enter ingredient</string>
+    <string name="enter_quantity">Enter Quantity</string>
+    <string name="enter_unit">Enter the unit</string>
+    <string name="enter_expiry_date">Enter expiry date</string>
+    <string name="clear">Clear</string>
+    <string name="my_pantry">My Pantry</string>
+    <string name="add_edit_ingredient_title">ADD/EDIT INGREDIENT</string>
+    <string name="enter_quantity_edit">Enter quantity</string>
+    <string name="enter_unit_edit">Enter unit</string>
+    <string name="save_ingredient">Save Ingredient</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_ingredient_button">Add to Pantry</string>
+    <string name="edit_button">Edit</string>
 </resources>

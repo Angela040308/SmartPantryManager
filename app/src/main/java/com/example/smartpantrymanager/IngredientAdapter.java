@@ -24,6 +24,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         TextView quantity;
         TextView expiry;
         Button deleteButton;
+        Button editButton;
 
         public IngredientViewHolder(@NonNull View itemView){
             super(itemView);
@@ -33,6 +34,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             quantity = itemView.findViewById(R.id.itemingredientQuantity);
             expiry = itemView.findViewById(R.id.itemingredientExpiryy);
             deleteButton = itemView.findViewById(R.id.deleteingredientButton);
+            editButton = itemView.findViewById(R.id.editingredientButton);
         }
     }
     @NonNull
@@ -84,6 +86,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             ));
 
         }
+        holder.editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), AddEditaIngredientActivity.class);
+            intent.putExtra("ingredientId", ingredient.getId());
+            v.getContext().startActivity(intent);
+        });
     }
     @Override
     public int getItemCount(){

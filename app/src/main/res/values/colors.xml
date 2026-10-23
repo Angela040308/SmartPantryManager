@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Sage green theme -->
+    <color name="sage_green">#879B83</color>
+    <color name="dark_sage">#526B52</color>
+    <color name="light_sage">#DCE5D8</color>
+
+    <!-- Cream backgrounds -->
+    <color name="cream">#FFF9EF</color>
+    <color name="warm_cream">#F3EBDD</color>
+
+    <!-- Text and cards -->
+    <color name="dark_text">#303A30</color>
+    <color name="card_white">#FFFFFFFF</color>
+
 </resources>

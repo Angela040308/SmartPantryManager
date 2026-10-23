@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cream"
     tools:context=".SettingsActivity">
 
     <!-- setting title-->
@@ -15,6 +16,7 @@
         android:text= "@string/settings_title"
         android:textSize="24sp"
         android:textStyle= "bold"
+        android:textColor="@color/dark_sage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"
@@ -29,6 +31,7 @@
         android:text = "@string/expiry_alerts"
         android:textSize="18sp"
         android:textStyle= "bold"
+        android:textColor="@color/dark_sage"
         app:layout_constraintTop_toBottomOf="@id/settingsTitle"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="32dp"
@@ -42,6 +45,7 @@
         android:layout_height="wrap_content"
         android:text="@string/expiry_alerts_description"
         android:textSize= "14sp"
+        android:textColor="@color/dark_text"
         app:layout_constraintTop_toBottomOf="@id/expiryAlertsTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/expiryAlertsSwitch"
@@ -55,8 +59,11 @@
         android:id="@+id/expiryAlertsSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/expiry_alerts"
         app:layout_constraintTop_toTopOf="@id/expiryAlertsTitle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:thumbTint="@color/sage_green"
+        app:trackTint="@color/light_sage"
         android:layout_marginEnd="16dp" />
 
     <!-- units preference heading-->
@@ -67,6 +74,7 @@
         android:text="@string/preferred_units"
         android:textSize="18sp"
         android:textStyle= "bold"
+        android:textColor="@color/dark_sage"
         app:layout_constraintTop_toBottomOf="@id/expiryAlertsDescription"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"
@@ -80,6 +88,7 @@
         android:layout_height="wrap_content"
         android:text="@string/preferred_units_description"
         android:textSize="14sp"
+        android:textColor="@color/dark_text"
         app:layout_constraintTop_toBottomOf="@id/unitsTitle"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="8dp"
@@ -94,6 +103,9 @@
         app:layout_constraintTop_toBottomOf="@id/unitsDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:minHeight="48dp"
+        android:backgroundTint="@color/sage_green"
+        android:padding="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
